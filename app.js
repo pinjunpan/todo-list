@@ -1,11 +1,18 @@
 const express = require('express')
 const app = express()
+const port = 3000
+
+const { engine } = require('express-handlebars')
 
 const db = require('./models')
 const Todo = db.Todo
 
+app.engine('.hbs', engine({extname: '.hbs'}))
+app.set('view engine', '.hbs')
+app.set('views', './views')
+
 app.get('/', (req, res) => {
-	res.send('hello world')
+	res.render('index')
 })
 
 app.get('/todos', (req, res) => {
@@ -38,6 +45,6 @@ app.delete('/todos/:id', (req, res) => {
   res.send('delete todo')
 })
 
-app.listen(3000, (req, res) => {
-  console.log('App is running on port 3000')
+app.listen(port, () => {
+  console.log(`App is running on http://localhost:${port}`)
 })
