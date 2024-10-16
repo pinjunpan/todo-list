@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 
 app.get('/', (req, res) => {
-	res.render('index')
+	res.redirect('/todos')
 })
 
 app.get('/todos', (req, res) => {
