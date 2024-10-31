@@ -4,23 +4,22 @@ const router = express.Router()
 const db = require('../models')
 const User = db.User
 
-
 router.post('/', (req, res, next) => {
   const { name, email, password, confirmPassword } = req.body
 
-  if(!email || !password){
+  if (!email || !password) {
     req.flash('error', 'email 及密碼為必填')
     return res.redirect('back')
   }
 
-  if(password !== confirmPassword){
+  if (password !== confirmPassword) {
     req.flash('error', '驗證密碼與密碼不符')
     return res.redirect('back')
   }
 
-  return User.count({where: { email }})
+  return User.count({ where: { email } })
     .then((number) => {
-      if(number > 0){
+      if (number > 0) {
         req.flash('error', 'email 已註冊')
         return
       }
@@ -28,7 +27,7 @@ router.post('/', (req, res, next) => {
       return User.create({ name, email, password })
     })
     .then((user) => {
-      if(!user){
+      if (!user) {
         return res.redirect('back')
       }
 
@@ -36,7 +35,7 @@ router.post('/', (req, res, next) => {
       return res.redirect('/login')
     })
     .catch((error) => {
-      error.errorMessage =  '註冊失敗：（'
+      error.errorMessage = '註冊失敗：（'
 		  next(error)
     })
 })

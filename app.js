@@ -4,7 +4,7 @@ const session = require('express-session')
 const app = express()
 const port = 3000
 
-if(process.env.NODE_ENV === 'development'){
+if (process.env.NODE_ENV === 'development') {
   require('dotenv').config()
 }
 
@@ -16,11 +16,11 @@ const errorHandler = require('./middlewares/error-handler')
 
 const router = require('./routes')
 
-app.engine('.hbs', engine({extname: '.hbs'}))
+app.engine('.hbs', engine({ extname: '.hbs' }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
 
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 app.use(session({
