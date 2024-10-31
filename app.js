@@ -4,6 +4,8 @@ const session = require('express-session')
 const app = express()
 const port = 3000
 
+const passport = require('passport')
+
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config()
 }
@@ -29,6 +31,8 @@ app.use(session({
   saveUninitialized: false
 }))
 app.use(flash())
+
+app.use(passport.initialize())
 
 app.use(messageHandler)
 
