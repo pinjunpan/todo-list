@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
   const page = parseInt(req.query.page) || 1
   const limit = 10
   const userId = req.user.id
-  
+
   return Todo.findAll({
     attributes: ['id', 'name', 'isComplete'],
     where: { userId },
@@ -56,17 +56,17 @@ router.get('/:id', (req, res, next) => {
     raw: true
   })
     .then((todo) => {
-      if(!todo){
+      if (!todo) {
         req.flash('error', '找不到資料：（')
         return res.redirect('/todos')
       }
-      if(todo.userId !== userId){
+      if (todo.userId !== userId) {
         req.flash('error', '權限不足：（')
         return res.redirect('/todos')
       }
 
       res.render('todo', { todo })
-  })
+    })
     .catch((error) => {
       error.errorMessage = '資料取得失敗：（'
 		        next(error)
@@ -82,17 +82,17 @@ router.get('/:id/edit', (req, res, next) => {
     raw: true
   })
     .then((todo) => {
-      if(!todo){
+      if (!todo) {
         req.flash('error', '找不到資料：（')
         return res.redirect('/todos')
       }
-      if(todo.userId !== userId){
+      if (todo.userId !== userId) {
         req.flash('error', '權限不足：（')
         return res.redirect('/todos')
       }
 
       res.render('edit', { todo })
-  })
+    })
     .catch((error) => {
       error.errorMessage = '資料取得失敗：（'
 		        next(error)
@@ -105,14 +105,14 @@ router.put('/:id', (req, res, next) => {
   const userId = req.user.id
 
   return Todo.findByPk(id, {
-    attributes: ['id', 'name', 'isComplete', 'userId'],
+    attributes: ['id', 'name', 'isComplete', 'userId']
   })
     .then((todo) => {
-      if(!todo){
+      if (!todo) {
         req.flash('error', '找不到資料：（')
         return res.redirect('/todos')
       }
-      if(todo.userId !== userId){
+      if (todo.userId !== userId) {
         req.flash('error', '權限不足：（')
         return res.redirect('/todos')
       }
@@ -126,7 +126,7 @@ router.put('/:id', (req, res, next) => {
     .catch((error) => {
       error.errorMessage = '編輯失敗：（'
 		        next(error)
-    })      
+    })
 })
 
 router.delete('/:id', (req, res, next) => {
@@ -134,14 +134,14 @@ router.delete('/:id', (req, res, next) => {
   const userId = req.user.id
 
   return Todo.findByPk(id, {
-    attributes: ['id', 'name', 'isComplete', 'userId'],
+    attributes: ['id', 'name', 'isComplete', 'userId']
   })
     .then((todo) => {
-      if(!todo){
+      if (!todo) {
         req.flash('error', '找不到資料：（')
         return res.redirect('/todos')
       }
-      if(todo.userId !== userId){
+      if (todo.userId !== userId) {
         req.flash('error', '權限不足：（')
         return res.redirect('/todos')
       }
@@ -151,11 +151,11 @@ router.delete('/:id', (req, res, next) => {
           req.flash('success', '刪除成功！')
           res.redirect('/todos')
         })
-    .catch((error) => {
-      error.errorMessage = '刪除失敗：（'
+        .catch((error) => {
+          error.errorMessage = '刪除失敗：（'
 		        next(error)
+        })
     })
-  })
 })
 
 module.exports = router
