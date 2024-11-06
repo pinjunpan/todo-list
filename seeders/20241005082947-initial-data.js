@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 module.exports = {
   async up (queryInterface, Sequelize) {
     let transaction
-    
+
     try {
       const hash = await bcrypt.hash('12345678', 10)
 
@@ -33,9 +33,8 @@ module.exports = {
 
       await transaction.commit()
     } catch (error) {
-      if(transaction) await transaction.rollback()
+      if (transaction) await transaction.rollback()
     }
-    
   },
 
   async down (queryInterface, Sequelize) {

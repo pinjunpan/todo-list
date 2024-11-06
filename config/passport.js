@@ -20,12 +20,12 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (username, password, 
 
       return bcrypt.compare(password, user.password)
         .then((isMatch) => {
-          if(!isMatch){
+          if (!isMatch) {
             return done(null, false, { message: 'email 或密碼錯誤' })
           }
 
           return done(null, user)
-        })     
+        })
     })
     .catch((error) => {
       error.errorMessage = '登入失敗：（'
@@ -48,13 +48,13 @@ passport.use(new FacebookStrategy({
     raw: true
   })
     .then((user) => {
-      if (user) return done(null, user)   
-      
+      if (user) return done(null, user)
+
       const randomPwd = Math.random().toString(36).slice(-8)
 
       return bcrypt.hash(randomPwd, 10)
         .then((hash) => User.create({ name, email, password: hash }))
-        .then((user) => done(null, { id: user.id, name: user.name, email: user.email}))
+        .then((user) => done(null, { id: user.id, name: user.name, email: user.email }))
     })
     .catch((error) => {
       error.errorMessage = '登入失敗：（'
