@@ -1,4 +1,7 @@
 # Todo List
+Start your plan, write down your **TODO-LIST**!
+
+![image](https://github.com/pinjunpan/todo-list/blob/main/public/images/main.png)
 
 ## Getting Started
 
